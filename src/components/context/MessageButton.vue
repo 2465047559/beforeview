@@ -3,7 +3,8 @@
     <div class="buttonParent">
       <div class="button_item" @click="goMessagePanel">
         <div class="button_icon">
-          <i class="el-icon-s-comment" style="font-size: 50px"></i>
+          <message-one theme="two-tone" size="50" :fill="['#333' ,'#ffffff']" :strokeWidth="1" strokeLinejoin="bevel" strokeLinecap="square"/>
+<!--          <i class="el-icon-s-comment" style="font-size: 50px"></i>-->
         </div>
         <div class="button_href">
           <span class="span_name">消息</span>
@@ -12,7 +13,8 @@
       </div>
       <div class="button_item" @click="goStart">
         <div class="button_icon">
-          <i class="el-icon-star-on" style="font-size: 50px"></i>
+          <like theme="two-tone" size="50" :fill="['#333' ,'#ffffff']" :strokeWidth="1" strokeLinejoin="bevel" strokeLinecap="square"/>
+<!--          <i class="el-icon-star-on" style="font-size: 50px"></i>-->
         </div>
         <div class="button_href">
           <span class="span_name">收藏</span>
@@ -23,7 +25,8 @@
     <div class="buttonParent">
       <div class="button_item" @click="goOrderList">
         <div class="button_icon">
-          <i class="el-icon-s-order" style="font-size: 50px"></i>
+          <transaction-order theme="two-tone" size="48" :fill="['#333' ,'#ffffff']" :strokeWidth="1" strokeLinejoin="bevel" strokeLinecap="square"/>
+<!--          <i class="el-icon-s-order" style="font-size: 50px"></i>-->
         </div>
         <div class="button_href">
           <span class="span_name">订单</span>
@@ -32,7 +35,8 @@
       </div>
       <div class="button_item" @click="goCommodity">
         <div class="button_icon">
-          <i class="el-icon-s-goods" style="font-size: 50px"></i>
+          <buy theme="two-tone" size="48" :fill="['#333' ,'#ffffff']" :strokeWidth="1" strokeLinejoin="bevel" strokeLinecap="square"/>
+<!--          <i class="el-icon-s-goods" style="font-size: 50px"></i>-->
         </div>
         <div class="button_href">
           <span class="span_name">宝贝</span>
@@ -44,8 +48,15 @@
 </template>
 
 <script>
+import {Like,MessageOne,TransactionOrder,Buy} from '@icon-park/vue';
 export default {
   name: "MessageButton",
+  components:{
+    Like,
+    MessageOne,
+    TransactionOrder,
+    Buy
+  },
   methods:{
     goMessagePanel(){
       this.$message.error('现在打不开，还在开发中');

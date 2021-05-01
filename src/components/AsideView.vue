@@ -23,7 +23,13 @@
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="3">
-        <template slot="title"><i class="el-icon-eleme"></i>优惠券</template>
+<!--        <template slot="title"><i class="el-icon-eleme"></i>优惠券</template>-->
+        <template slot="title">
+          <coupon theme="outline"
+                  size="20" fill="#333"
+                  :strokeWidth="1"
+                  style="margin: 0px 5px 0px 0px"/>
+          优惠券</template>
         <el-menu-item-group>
           <template slot="title">优惠券操作</template>
           <el-menu-item index="3-1" route="show_all_coupon">所有优惠券</el-menu-item>
@@ -48,6 +54,7 @@
 
 <script>
 import { Menu,Submenu,MenuItemGroup,MenuItem,} from 'element-ui';
+import {Coupon} from '@icon-park/vue';
 import AsideView from "./AsideView";
 export default {
   name: "AsideView",
@@ -57,6 +64,7 @@ export default {
     Submenu: Submenu.name,
     MenuItemGroup: MenuItemGroup.name,
     MenuItem: MenuItem.name,
+    Coupon
   },
   methods: {
     handleOpen(key, keyPath) {

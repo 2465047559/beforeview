@@ -1,22 +1,22 @@
 <template>
   <div class="login-container">
-    <el-form :model="ruleForm2" :rules="rules2"
+    <el-form :model="admin_data" :rules="rules2"
              status-icon
-             ref="ruleForm2"
+             ref="admin_data"
              label-position="left"
              label-width="0px"
              class="demo-ruleForm login-page">
       <h3 class="title">系统登录</h3>
-      <el-form-item prop="username">
+      <el-form-item prop="admin_number">
         <el-input type="text"
-                  v-model="ruleForm2.username"
+                  v-model="admin_data.admin_number"
                   auto-complete="off"
                   placeholder="用户名"
         ></el-input>
       </el-form-item>
       <el-form-item prop="password">
         <el-input type="password"
-                  v-model="ruleForm2.password"
+                  v-model="admin_data.admin_password"
                   auto-complete="off"
                   placeholder="密码"
         ></el-input>
@@ -49,39 +49,64 @@ export default {
   data(){
     return {
       logining: false,
-      ruleForm2: {
-        username: 'admin',
-        password: '123456',
+      admin_data: {
+        admin_number: 'admin',
+        admin_password: '123456',
       },
       rules2: {
-        username: [{required: true, message: '请输入账号', trigger: 'blur'}],
-        password: [{required: true, message: '请输入密码', trigger: 'blur'}]
+        admin_number: [{required: true, message: '请输入账号', trigger: 'blur'}],
+        admin_password: [{required: true, message: '请输入密码', trigger: 'blur'}]
       },
       checked: false
     }
   },
   methods:{
     handleSubmit(event){
-      this.$refs.ruleForm2.validate((valid) => {
+      this.$refs.admin_data.validate((valid) => {
         if(valid){
           this.logining = true;
-          if(this.ruleForm2.username === 'admin' &&
-            this.ruleForm2.password === '123456'){
-            this.logining = true;
-            sessionStorage.setItem('user', this.ruleForm2.username);
-            this.$router.push({path: '/main_view'});
-          }else{
-            this.logining = false;
-            this.$alert('账号密码错误', 'info', {
-              confirmButtonText: 'ok'
-            })
-          }
+          let post_data = this.$qs.stringify({
+            admin_number: this.admin_data.admin_number,
+            admin_password: this.admin_data.admin_password
+          })
+          this.$axios({
+            url: '/admin_login',
+            method: 'post',
+            data: post_data
+          }).then( response => {
+            if (response.data.result === 1){
+              this.$router.push({path: response.data.url});
+            }
+          }).catch( error => {
+            console.log(error);
+          })
         }else{
           console.log('提交错误！');
           return false;
         }
       })
     }
+    // handleSubmit(event){
+    //   this.$refs.ruleForm2.validate((valid) => {
+    //     if(valid){
+    //       this.logining = true;
+    //       if(this.ruleForm2.username === 'admin' &&
+    //         this.ruleForm2.password === '123456'){
+    //         this.logining = true;
+    //         sessionStorage.setItem('user', this.ruleForm2.username);
+    //         this.$router.push({path: '/main_view'});
+    //       }else{
+    //         this.logining = false;
+    //         this.$alert('账号密码错误', 'info', {
+    //           confirmButtonText: 'ok'
+    //         })
+    //       }
+    //     }else{
+    //       console.log('提交错误！');
+    //       return false;
+    //     }
+    //   })
+    // }
   }
 }
 </script>
